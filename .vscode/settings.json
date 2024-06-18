@@ -1,9 +1,3 @@
 {
-	"CodeGPT.apiKey": "Ollama",
-	"CodeGPT.Autocomplete.enabled": true,
-	"CodeGPT.Autocomplete.maxTokens": 1024,
-	"CodeGPT.Autocomplete.suggestionDelay": 1500,
-	"localaipilot.general.inlineSuggestions": true,
 	"cSpell.words": ["chakra"],
-	"CodeGPT.Autocomplete.provider": "Ollama - deepseek-coder:base"
 }
