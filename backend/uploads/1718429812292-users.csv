@@ -1,0 +1,11 @@
+firstName,lastName,email,testUser,client
+John,Smith,John.Smith@nike.com,TRUE,nike
+Jane,Johnson,Jane.Johnson@apple.com,TRUE,apple
+Bob,Williams,Bob.Williams@intel.com,TRUE,intel
+Alice,Jones,Alice.Jones@meta.com,TRUE,meta
+Mike,Brown,Mike.Brown@google.com,TRUE,google
+Lisa,Davis,Lisa.Davis@ups.com,TRUE,ups
+Tom,Miller,Tom.Miller@amazon.com,TRUE,amazon
+Emily,Wilson,Emily.Wilson@microsoft.com,TRUE,microsoft
+Harry,Moore,Harry.Moore@tesla.com,TRUE,tesla
+Olivia,Taylor,Olivia.Taylor@samsung.com,TRUE,samsung
