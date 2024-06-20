@@ -111,62 +111,6 @@ const IncentiveForm = ({ initialData = {}, onSubmit }) => {
 				</Box>
 			</Container>
 		</Flex>
-		// <Box fontSize="sm" w="2xl" as="form" onSubmit={handleSubmit}>
-		// 	<Flex
-		// 		mb={4}
-		// 		alignItems="center"
-		// 		border={"2px"}
-		// 		borderColor={"red.300"}
-		// 		p={2}
-		// 		rounded="md">
-		// 		<Text mr={4}>Select Client</Text>
-		// 		<ClientDropdown />
-		// 	</Flex>
-		// 	<FormControl id="title" isRequired>
-		// 		<FormLabel>Title</FormLabel>
-		// 		<Input
-		// 			type="text"
-		// 			value={title}
-		// 			onChange={(e) => setTitle(e.target.value)}
-		// 		/>
-		// 	</FormControl>
-		// 	<FormControl id="description" isRequired mt={4}>
-		// 		<FormLabel>Description</FormLabel>
-		// 		<ReactQuill value={description} onChange={setDescription} />
-		// 	</FormControl>
-		// 	<HStack>
-		// 		<FormControl id="startDate" isRequired>
-		// 			<FormLabel>Start Date</FormLabel>
-		// 			<Input
-		// 				variant="filled"
-		// 				type="date"
-		// 				value={startDate}
-		// 				onChange={(e) => setStartDate(e.target.value)}
-		// 			/>
-		// 		</FormControl>
-		// 		<FormControl id="startDate" isRequired>
-		// 			<FormLabel>End Date</FormLabel>
-		// 			<Input
-		// 				variant="filled"
-		// 				type="date"
-		// 				value={endDate}
-		// 				onChange={(e) => setEndDate(e.target.value)}
-		// 			/>
-		// 		</FormControl>
-		// 	</HStack>
-		// 	<HStack display="flex" justifyContent="space-between">
-		// 		<Button  type="submit" colorScheme="blue" mt={4}>
-		// 			Submit
-		// 		</Button>
-		// 		<Button
-		//
-		// 			mt={4}
-		// 			colorScheme="red"
-		// 			onClick={() => navigate("/incentives")}>
-		// 			Cancel
-		// 		</Button>
-		// 	</HStack>
-		// </Box>
 	);
 };
 

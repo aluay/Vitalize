@@ -30,10 +30,9 @@ export const loginUser = async (credentials) => {
 /**
  * Gets a user by their ID and returns their data.
  * @param {number} userId The ID of the user to fetch.
- * @param {string} token An authentication token for the request.
  * @returns {Promise<object>} A promise that resolves to an object containing the user's data.
  */
-export const getUserById = async (userId, token) => {
+export const getUserById = async (userId) => {
 	try {
 		const response = await axios.get(
 			`${API_URL}/users/${userId}`,
@@ -53,10 +52,9 @@ export const getUserById = async (userId, token) => {
  * Updates a user's data and returns the updated data.
  * @param {number} userId The ID of the user to update.
  * @param {object} userData An object containing the new data for the user.
- * @param {string} token An authentication token for the request.
  * @returns {Promise<object>} A promise that resolves to an object containing the updated user's data.
  */
-export const updateUser = async (userId, userData, token) => {
+export const updateUser = async (userId, userData) => {
 	try {
 		const response = await axios.put(
 			`${API_URL}/users/${userId}`,
@@ -343,7 +341,7 @@ export const getClients = async () => {
  * @param {number} clientId The ID of the client to fetch.
  * @returns {Promise<object>} A promise that resolves to an object containing the client's data.
  */
-export const getClientById = async (clientId, token) => {
+export const getClientById = async (clientId) => {
 	try {
 		const response = await axios.get(
 			`${API_URL}/clients/${clientId}`,
@@ -365,7 +363,7 @@ export const getClientById = async (clientId, token) => {
  * @param {object} clientData An object containing the new data for the client.
  * @returns {Promise<object>} A promise that resolves to an object containing the updated client's data.
  */
-export const updateClient = async (clientId, clientData, token) => {
+export const updateClient = async (clientId, clientData) => {
 	try {
 		const response = await axios.put(
 			`${API_URL}/clients/${clientId}`,
@@ -400,7 +398,7 @@ export const deleteClient = async (id) => {
  * @param {number} clientId The ID of the client to fetch users for.
  * @returns {Promise<array>} A promise that resolves to an array of user objects.
  */
-export const getUsersByClient = async (clientId, token) => {
+export const getUsersByClient = async (clientId) => {
 	try {
 		const response = await axios.get(
 			`${API_URL}/users/client/${clientId}`,
@@ -421,7 +419,7 @@ export const getUsersByClient = async (clientId, token) => {
  * @param {number} clientId The ID of the client to fetch challenges for.
  * @returns {Promise<array>} A promise that resolves to an array of challenge objects.
  */
-export const getChallengesByClient = async (clientId, token) => {
+export const getChallengesByClient = async (clientId) => {
 	try {
 		const response = await axios.get(
 			`${API_URL}/challenges/client/${clientId}`,
@@ -442,7 +440,7 @@ export const getChallengesByClient = async (clientId, token) => {
  * @param {number} clientId The ID of the client to fetch routines for.
  * @returns {Promise<array>} A promise that resolves to an array of routine objects.
  */
-export const getRoutinesByClient = async (clientId, token) => {
+export const getRoutinesByClient = async (clientId) => {
 	try {
 		const response = await axios.get(
 			`${API_URL}/routines/client/${clientId}`,
@@ -463,7 +461,7 @@ export const getRoutinesByClient = async (clientId, token) => {
  * @param {number} clientId The ID of the client to fetch expeditions for.
  * @returns {Promise<array>} A promise that resolves to an array of expedition objects.
  */
-export const getExpeditionsByClient = async (clientId, token) => {
+export const getExpeditionsByClient = async (clientId) => {
 	try {
 		const response = await axios.get(
 			`${API_URL}/expeditions/client/${clientId}`,
@@ -484,7 +482,7 @@ export const getExpeditionsByClient = async (clientId, token) => {
  * @param {number} clientId The ID of the client to fetch incentives for.
  * @returns {Promise<array>} A promise that resolves to an array of incentive objects.
  */
-export const getIncentivesByClient = async (clientId, token) => {
+export const getIncentivesByClient = async (clientId) => {
 	try {
 		const response = await axios.get(
 			`${API_URL}/incentives/client/${clientId}`,
@@ -503,11 +501,10 @@ export const getIncentivesByClient = async (clientId, token) => {
 /**
  * Fetches a message by ID.
  * @param {string} messageId - The ID of the message to fetch.
- * @param {string} token - The authentication token.
  * @returns {Promise<Object>} - The message data.
  * @throws {Error} - If an error occurs while fetching the message.
  */
-export const getMessageById = async (messageId, token) => {
+export const getMessageById = async (messageId) => {
 	try {
 		const response = await axios.get(
 			`${API_URL}/messages/${messageId}`,
@@ -526,12 +523,10 @@ export const getMessageById = async (messageId, token) => {
 /**
  * Creates a new message.
  * @param {Object} messageData - The data of the message to create.
- * @param {string} token - The authentication token.
  * @returns {Promise<Object>} - The created message data.
  * @throws {Error} - If an error occurs while creating the message.
  */
-export const createMessage = async (messageData, token) => {
-	console.log(token);
+export const createMessage = async (messageData) => {
 	try {
 		const response = await axios.post(
 			`${API_URL}/messages`,
@@ -552,11 +547,10 @@ export const createMessage = async (messageData, token) => {
  * Updates a message by ID.
  * @param {string} messageId - The ID of the message to update.
  * @param {Object} messageData - The updated message data.
- * @param {string} token - The authentication token.
  * @returns {Promise<Object>} - The updated message data.
  * @throws {Error} - If an error occurs while updating the message.
  */
-export const updateMessage = async (messageId, messageData, token) => {
+export const updateMessage = async (messageId, messageData) => {
 	try {
 		const response = await axios.put(
 			`${API_URL}/messages/${messageId}`,
@@ -576,11 +570,10 @@ export const updateMessage = async (messageId, messageData, token) => {
 /**
  * Fetches messages by client ID.
  * @param {string} clientId - The ID of the client to fetch messages for.
- * @param {string} token - The authentication token.
  * @returns {Promise<Array>} - An array of messages for the client.
  * @throws {Error} - If an error occurs while fetching the messages.
  */
-export const getMessagesByClient = async (clientId, token) => {
+export const getMessagesByClient = async (clientId) => {
 	try {
 		const response = await axios.get(
 			`${API_URL}/messages/client/${clientId}`,
@@ -599,11 +592,10 @@ export const getMessagesByClient = async (clientId, token) => {
 /**
  * Deletes a message by ID.
  * @param {string} messageId - The ID of the message to delete.
- * @param {string} token - The authentication token.
  * @returns {Promise<Object>} - The response data.
  * @throws {Error} - If an error occurs while deleting the message.
  */
-export const deleteMessage = async (messageId, token) => {
+export const deleteMessage = async (messageId) => {
 	try {
 		const response = await axios.delete(
 			`${API_URL}/messages/${messageId}`,
@@ -613,6 +605,96 @@ export const deleteMessage = async (messageId, token) => {
 	} catch (error) {
 		console.error(
 			"Error deleting message:",
+			error.response ? error.response.data : error.message
+		);
+		throw error;
+	}
+};
+
+/**
+ * Fetches all rules.
+ * @returns {Promise<Array>} - An array of rules.
+ * @throws {Error} - If an error occurs while fetching the rules.
+ */
+export const getRulesByClient = async (clientId) => {
+	try {
+		const response = await axios.get(
+			`${API_URL}/rules/client/${clientId}`,
+			getAuthHeaders()
+		);
+		return response.data;
+	} catch (error) {
+		console.error(
+			"Error fetching rules:",
+			error.response ? error.response.data : error.message
+		);
+		throw error;
+	}
+};
+
+/**
+ * Creates a new rule.
+ * @param {Object} ruleData - The data of the rule to create.
+ * @returns {Promise<Object>} - The created rule data.
+ * @throws {Error} - If an error occurs while creating the rule.
+ */
+export const createRule = async (ruleData) => {
+	try {
+		const response = await axios.post(
+			`${API_URL}/rules`,
+			ruleData,
+			getAuthHeaders()
+		);
+		return response.data;
+	} catch (error) {
+		console.error(
+			"Error creating rule:",
+			error.response ? error.response.data : error.message
+		);
+		throw error;
+	}
+};
+
+/**
+ * Updates a rule by ID.
+ * @param {string} ruleId - The ID of the rule to update.
+ * @param {Object} ruleData - The updated rule data.
+ * @returns {Promise<Object>} - The updated rule data.
+ * @throws {Error} - If an error occurs while updating the rule.
+ */
+export const updateRule = async (ruleId, ruleData) => {
+	try {
+		const response = await axios.put(
+			`${API_URL}/rules/${ruleId}`,
+			ruleData,
+			getAuthHeaders()
+		);
+		return response.data;
+	} catch (error) {
+		console.error(
+			"Error updating rule:",
+			error.response ? error.response.data : error.message
+		);
+		throw error;
+	}
+};
+
+/**
+ * Deletes a rule by ID.
+ * @param {string} ruleId - The ID of the rule to delete.
+ * @returns {Promise<Object>} - The response data.
+ * @throws {Error} - If an error occurs while deleting the rule.
+ */
+export const deleteRule = async (ruleId) => {
+	try {
+		const response = await axios.delete(
+			`${API_URL}/rules/${ruleId}`,
+			getAuthHeaders()
+		);
+		return response.data;
+	} catch (error) {
+		console.error(
+			"Error deleting rule:",
 			error.response ? error.response.data : error.message
 		);
 		throw error;

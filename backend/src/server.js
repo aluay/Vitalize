@@ -13,7 +13,7 @@ import incentiveRoutes from "./routes/incentiveRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import clientRoutes from "./routes/clientRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
-
+import ruleRoutes from "./routes/ruleRoutes.js";
 // Load environment variables from .env file
 dotenv.config();
 
@@ -51,6 +51,7 @@ app.use("/api/incentives", incentiveRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/clients", clientRoutes);
 app.use("/api/messages", messageRoutes);
+app.use("/api/rules", ruleRoutes);
 
 // Define a simple route for testing
 app.get("/", (req, res) => {

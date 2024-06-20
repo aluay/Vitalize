@@ -28,7 +28,9 @@ import UserInfo from "./pages/UserInfo";
 import Messages from "./pages/Messages";
 import NewMessage from "./pages/NewMessage";
 import EditMessage from "./pages/EditMessage";
-import Breadcrumbs from "./components/Breadcrumbs";
+import Tools from "./pages/Tools";
+
+// import Breadcrumbs from "./components/Breadcrumbs";
 
 const PrivateRoute = ({ children }) => {
 	const token = localStorage.getItem("token");
@@ -39,7 +41,7 @@ function App() {
 	return (
 		<ChakraProvider>
 			<Router>
-				<Breadcrumbs />
+				{/* <Breadcrumbs /> */}
 				<Routes>
 					<Route path="/login" element={<Login />} />
 					<Route
@@ -207,6 +209,14 @@ function App() {
 						element={
 							<PrivateRoute>
 								<EditMessage />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path="/tools"
+						element={
+							<PrivateRoute>
+								<Tools />
 							</PrivateRoute>
 						}
 					/>
