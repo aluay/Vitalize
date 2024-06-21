@@ -1,6 +1,10 @@
 import Client from "../models/Client.js";
 
-// Fetch all clients
+/**
+ * Get all clients
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ */
 export const getClients = async (req, res) => {
 	try {
 		const clients = await Client.find({});
@@ -11,7 +15,11 @@ export const getClients = async (req, res) => {
 	}
 };
 
-// Fetch a single client by id
+/**
+ * Get a single client by id
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ */
 export const getClientById = async (req, res) => {
 	const { clientId } = req.params;
 	try {
@@ -27,6 +35,11 @@ export const getClientById = async (req, res) => {
 	}
 };
 
+/**
+ * Update a client by id
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ */
 export const updateClient = async (req, res) => {
 	const { clientId } = req.params;
 	const { name, domain } = req.body;
@@ -46,7 +59,11 @@ export const updateClient = async (req, res) => {
 	}
 };
 
-// Delete a client
+/**
+ * Delete a client by id
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ */
 export const deleteClient = async (req, res) => {
 	try {
 		const client = await Client.findById(req.params.id);

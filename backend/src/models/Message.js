@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 
+/**
+ * A schema definition for a message.
+ */
 const messageSchema = new mongoose.Schema({
 	title: {
 		type: String,

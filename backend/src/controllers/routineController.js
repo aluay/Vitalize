@@ -1,7 +1,11 @@
 import User from "../models/User.js";
 import Routine from "../models/Routine.js";
 
-// Fetch all routines
+/**
+ * Fetch all routines in the system.
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 export const getRoutines = async (req, res) => {
 	try {
 		const routines = await Routine.find({});
@@ -12,7 +16,11 @@ export const getRoutines = async (req, res) => {
 	}
 };
 
-// Fetch a single routine by ID
+/**
+ * Fetch a single routine by its ID.
+ * @param {Object} req - Express request object, containing the parameters from the URL
+ * @param {Object} res - Express response object
+ */
 export const getRoutineById = async (req, res) => {
 	try {
 		const routine = await Routine.findById(req.params.id);
@@ -27,7 +35,11 @@ export const getRoutineById = async (req, res) => {
 	}
 };
 
-// Start a routine
+/**
+ * Start a routine for the current user.
+ * @param {Object} req - Express request object, containing the body of the request with the routineId to start
+ * @param {Object} res - Express response object
+ */
 export const startRoutine = async (req, res) => {
 	const { routineId } = req.body;
 	const userId = req.user._id;
@@ -49,7 +61,11 @@ export const startRoutine = async (req, res) => {
 	}
 };
 
-// Abandon a routine
+/**
+ * Abandon a routine for the current user.
+ * @param {Object} req - Express request object, containing the body of the request with the routineId to abandon
+ * @param {Object} res - Express response object
+ */
 export const abandonRoutine = async (req, res) => {
 	const { routineId } = req.body;
 	const userId = req.user._id;
@@ -69,7 +85,11 @@ export const abandonRoutine = async (req, res) => {
 	}
 };
 
-// Update progress
+/**
+ * Update progress on a routine for the current user.
+ * @param {Object} req - Express request object, containing the body of the request with the routineId and new progress to update
+ * @param {Object} res - Express response object
+ */
 export const updateProgress = async (req, res) => {
 	const { routineId, progress } = req.body;
 	const userId = req.user._id;
@@ -101,7 +121,11 @@ export const updateProgress = async (req, res) => {
 	}
 };
 
-// Create a new routine
+/**
+ * Create a new routine
+ * @param {Object} req - The request object containing the client's request.
+ * @param {Object} res - The response object used to send back the result of the request.
+ */
 export const createRoutine = async (req, res) => {
 	try {
 		const {
@@ -138,7 +162,11 @@ export const createRoutine = async (req, res) => {
 	}
 };
 
-// Update a routine
+/**
+ * Update a routine
+ * @param {Object} req - The request object containing the client's request including id of the routine to be updated.
+ * @param {Object} res - The response object used to send back the result of the request.
+ */
 export const updateRoutine = async (req, res) => {
 	const { id } = req.params;
 	const {
@@ -178,7 +206,11 @@ export const updateRoutine = async (req, res) => {
 	}
 };
 
-// Delete a routine
+/**
+ * Delete a routine
+ * @param {Object} req - The request object containing the client's request including id of the routine to be deleted.
+ * @param {Object} res - The response object used to send back the result of the request.
+ */
 export const deleteRoutine = async (req, res) => {
 	const { id } = req.params;
 
@@ -195,7 +227,11 @@ export const deleteRoutine = async (req, res) => {
 	}
 };
 
-// Get routines by client
+/**
+ * Get routines by client
+ * @param {Object} req - The request object containing the client's request including id of the client.
+ * @param {Object} res - The response object used to send back the result of the request.
+ */
 export const getRoutinesByClient = async (req, res) => {
 	const { clientId } = req.params;
 	try {

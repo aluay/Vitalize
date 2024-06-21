@@ -1,7 +1,11 @@
 import Challenge from "../models/Challenge.js";
 import User from "../models/User.js";
 
-// Fetch all challenges
+/**
+ * Get all challenges
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 export const getChallenges = async (req, res) => {
 	try {
 		const challenges = await Challenge.find({});
@@ -12,7 +16,11 @@ export const getChallenges = async (req, res) => {
 	}
 };
 
-// Fetch a single challenge by ID
+/**
+ * Get a challenge by its ID
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 export const getChallengeById = async (req, res) => {
 	try {
 		const challenge = await Challenge.findById(req.params.id);
@@ -27,7 +35,11 @@ export const getChallengeById = async (req, res) => {
 	}
 };
 
-// Start a challenge
+/**
+ * Start a challenge for the authenticated user
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 export const startChallenge = async (req, res) => {
 	const { challengeId } = req.body;
 	const userId = req.user._id;
@@ -53,7 +65,12 @@ export const startChallenge = async (req, res) => {
 	}
 };
 
-// Abandon a challenge
+/**
+ * Abandons a challenge for the current user.
+ * @param {Object} req - The request object containing the user and challengeId in the body.
+ * @param {string} req.body.challengeId - The ID of the challenge to be abandoned.
+ * @param {Object} res - The response object.
+ */
 export const abandonChallenge = async (req, res) => {
 	const { challengeId } = req.body;
 	const userId = req.user._id;
@@ -73,7 +90,13 @@ export const abandonChallenge = async (req, res) => {
 	}
 };
 
-// Update progress
+/**
+ * Updates the progress of a challenge for the current user.
+ * @param {Object} req - The request object containing the user, challengeId and progress in the body.
+ * @param {string} req.body.challengeId - The ID of the challenge to be updated.
+ * @param {number} req.body.progress - The amount by which the challenge's progress should be incremented.
+ * @param {Object} res - The response object.
+ */
 export const updateProgress = async (req, res) => {
 	const { challengeId, progress } = req.body;
 	const userId = req.user._id;
@@ -105,7 +128,24 @@ export const updateProgress = async (req, res) => {
 	}
 };
 
-// Create a new challenge
+/**
+ * Creates a new challenge.
+ * @param {Object} req - The request object containing the title, description and other challenge details in the body.
+ * @param {string} req.body.title - The title of the challenge.
+ * @param {string} req.body.description - A short description of the challenge.
+ * @param {string} req.body.type - The type of the challenge.
+ * @param {string} req.body.status - The status of the challenge (e.g., active, completed).
+ * @param {string} req.body.visibility - Who can see this challenge (e.g., public, private).
+ * @param {Date} req.body.startDate - When the challenge starts.
+ * @param {Date} req.body.endDate - When the challenge ends.
+ * @param {number} req.body.reward - The reward for completing the challenge.
+ * @param {string} req.body.difficulty - The difficulty of the challenge (e.g., easy, medium, hard).
+ * @param {number} req.body.goal - The goal for the challenge.
+ * @param {string} req.body.completionCriteriaType - How to measure completion (e.g., steps, time).
+ * @param {number} req.body.completionCriteriaAmount - The amount required to complete the challenge.
+ * @param {string} req.body.client - The client for which this challenge is intended.
+ * @param {Object} res - The response object.
+ */
 export const createChallenge = async (req, res) => {
 	try {
 		const {
@@ -119,7 +159,8 @@ export const createChallenge = async (req, res) => {
 			reward,
 			difficulty,
 			goal,
-			completionCriteria,
+			completionCriteriaType,
+			completionCriteriaAmount,
 			client,
 		} = req.body;
 		const challenge = new Challenge({
@@ -133,8 +174,11 @@ export const createChallenge = async (req, res) => {
 			reward,
 			difficulty,
 			goal,
-			completionCriteria,
 			client,
+			completionCriteria: {
+				type: completionCriteriaType,
+				amount: completionCriteriaAmount,
+			},
 		});
 		const createdChallenge = await challenge.save();
 		res.status(201).json(createdChallenge);
@@ -144,7 +188,13 @@ export const createChallenge = async (req, res) => {
 	}
 };
 
-// Update a challenge
+/**
+ * Update a challenge in the database
+ * @param {Object} req - Express request object
+ * @param {string} req.params.id - The id of the challenge to update
+ * @param {Object} req.body - Data to update the challenge with
+ * @return {Object|null} updatedChallenge - The updated challenge or null if no challenge was found
+ */
 export const updateChallenge = async (req, res) => {
 	const { id } = req.params;
 	const {
@@ -152,32 +202,65 @@ export const updateChallenge = async (req, res) => {
 		description,
 		type,
 		status,
+		visibility,
 		startDate,
 		endDate,
 		reward,
 		difficulty,
 		goal,
-		completionCriteria,
+		completionCriteriaType,
+		completionCriteriaAmount,
 	} = req.body;
 
+	// Validate required fields
+	if (
+		!title ||
+		!description ||
+		!type ||
+		!status ||
+		!visibility ||
+		!startDate ||
+		!endDate ||
+		!reward ||
+		!difficulty ||
+		!goal ||
+		!completionCriteriaType ||
+		!completionCriteriaAmount
+	) {
+		return res.status(400).json({ message: "All fields are required" });
+	}
+
 	try {
-		const challenge = await Challenge.findById(id);
+		const challenge = await Challenge.findById(id).lean();
 		if (!challenge) {
 			return res.status(404).json({ message: "Challenge not found" });
 		}
 
-		challenge.title = title;
-		challenge.description = description;
-		challenge.type = type;
-		challenge.status = status;
-		challenge.startDate = startDate;
-		challenge.endDate = endDate;
-		challenge.reward = reward;
-		challenge.difficulty = difficulty;
-		challenge.goal = goal;
-		challenge.completionCriteria = completionCriteria;
+		// Update only provided fields to avoid overwriting other data
+		const updateData = {};
+		if (title) updateData.title = title;
+		if (description) updateData.description = description;
+		if (type) updateData.type = type;
+		if (status) updateData.status = status;
+		if (visibility) updateData.visibility = visibility;
+		if (startDate) updateData.startDate = startDate;
+		if (endDate) updateData.endDate = endDate;
+		if (reward) updateData.reward = reward;
+		if (difficulty) updateData.difficulty = difficulty;
+		if (goal) updateData.goal = goal;
+		if (completionCriteriaType && completionCriteriaAmount)
+			updateData.completionCriteria = {
+				type: completionCriteriaType,
+				amount: completionCriteriaAmount,
+			};
 
-		const updatedChallenge = await challenge.save();
+		const updatedChallenge = await Challenge.findByIdAndUpdate(id, updateData, {
+			new: true,
+		}).lean();
+		if (!updatedChallenge) {
+			return res.status(404).json({ message: "Challenge not found" });
+		}
+
 		res.json(updatedChallenge);
 	} catch (error) {
 		console.log(error);
@@ -185,7 +268,11 @@ export const updateChallenge = async (req, res) => {
 	}
 };
 
-// Delete a challenge
+/**
+ * Delete a challenge from the database
+ * @param {Object} req - Express request object
+ * @param {string} req.params.id - The id of the challenge to delete
+ */
 export const deleteChallenge = async (req, res) => {
 	const { id } = req.params;
 
@@ -202,7 +289,12 @@ export const deleteChallenge = async (req, res) => {
 	}
 };
 
-// Get challenges by client
+/**
+ * Get all challenges for a specific client
+ * @param {Object} req - Express request object
+ * @param {string} req.params.clientId - The id of the client to fetch challenges for
+ * @return {Array<Challenge>|Error} users - Array of challenges or Error if there was an issue fetching them
+ */
 export const getChallengesByClient = async (req, res) => {
 	const { clientId } = req.params;
 	try {

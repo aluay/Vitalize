@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 
+/**
+ * A schema definition for a rule.
+ */
 const ruleSchema = new mongoose.Schema({
 	entity: { type: String, required: true },
 	attribute: { type: String, required: true },

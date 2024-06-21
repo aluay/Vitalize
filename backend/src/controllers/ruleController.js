@@ -1,5 +1,11 @@
 import Rule from "../models/Rule.js";
 
+/**
+ * Fetch all the rules from database
+ * @param {Object} req - HTTP request object
+ * @param {Object} res - HTTP response object
+ * @returns {Promise<void>}
+ */
 export const getRules = async (req, res) => {
 	try {
 		const rules = await Rule.find();
@@ -11,6 +17,12 @@ export const getRules = async (req, res) => {
 	}
 };
 
+/**
+ * Fetch all the rules for a specific client from database
+ * @param {Object} req - HTTP request object
+ * @param {Object} res - HTTP response object
+ * @returns {Promise<void>}
+ */
 export const getRulesByClient = async (req, res) => {
 	const { clientId } = req.params;
 	try {
@@ -24,6 +36,12 @@ export const getRulesByClient = async (req, res) => {
 	}
 };
 
+/**
+ * Create a new rule in the database
+ * @param {Object} req - HTTP request object
+ * @param {Object} res - HTTP response object
+ * @returns {Promise<void>}
+ */
 export const createRule = async (req, res) => {
 	const { entity, attribute, operator, value, logicalConditions, client } =
 		req.body;
@@ -46,6 +64,12 @@ export const createRule = async (req, res) => {
 	}
 };
 
+/**
+ * Update a rule in the database
+ * @param {Object} req - HTTP request object
+ * @param {Object} res - HTTP response object
+ * @returns {Promise<void>}
+ */
 export const updateRule = async (req, res) => {
 	const { ruleId } = req.params;
 	try {
@@ -61,6 +85,12 @@ export const updateRule = async (req, res) => {
 	}
 };
 
+/**
+ * Delete a rule from the database
+ * @param {Object} req - HTTP request object
+ * @param {Object} res - HTTP response object
+ * @returns {Promise<void>}
+ */
 export const deleteRule = async (req, res) => {
 	const { ruleId } = req.params;
 	try {

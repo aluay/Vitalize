@@ -1,7 +1,6 @@
-// Import necessary modules
 import express from "express";
 import dotenv from "dotenv";
-import cors from "cors"; // Import the cors middleware
+import cors from "cors";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
@@ -14,6 +13,7 @@ import uploadRoutes from "./routes/uploadRoutes.js";
 import clientRoutes from "./routes/clientRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 import ruleRoutes from "./routes/ruleRoutes.js";
+
 // Load environment variables from .env file
 dotenv.config();
 

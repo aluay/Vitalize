@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 
+/**
+ * A schema definition for a routine.
+ */
 const routineSchema = mongoose.Schema(
 	{
 		title: {

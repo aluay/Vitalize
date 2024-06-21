@@ -1,14 +1,22 @@
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 
-// Function to generate a JWT token
+/**
+ * Generate a JSON Web Token (JWT) for a user with the given ID.
+ * @param {string} id - The ID of the user to generate a token for.
+ * @return {string} A signed JWT string that can be used for authentication.
+ */
 const generateToken = (id) => {
 	return jwt.sign({ id }, process.env.JWT_SECRET, {
 		expiresIn: "30d",
 	});
 };
 
-// Update user profile
+/**
+ * Update the profile of a user.
+ * @param {object} req - The request object containing the updated information and the authenticated user.
+ * @param {object} res - The response object to send back the result of the update.
+ */
 export const updateUserProfile = async (req, res) => {
 	const { username, email, password } = req.body;
 
@@ -43,7 +51,11 @@ export const updateUserProfile = async (req, res) => {
 	}
 };
 
-// Fetch the challenges started by the user
+/**
+ * Fetch the challenges started by a user.
+ * @param {object} req - The request object containing the authenticated user's ID.
+ * @param {object} res - The response object to send back the list of challenges.
+ */
 export const getUserChallenges = async (req, res) => {
 	try {
 		const user = await User.findById(req.user._id).populate(
@@ -66,7 +78,11 @@ export const getUserChallenges = async (req, res) => {
 	}
 };
 
-// Fetch the routines started by the user
+/**
+ * Fetch the routines started by a user.
+ * @param {object} req - The request object containing the authenticated user's ID.
+ * @param {object} res - The response object to send back the list of routines.
+ */
 export const getUserRoutines = async (req, res) => {
 	try {
 		const user = await User.findById(req.user._id).populate(
@@ -91,7 +107,12 @@ export const getUserRoutines = async (req, res) => {
 	}
 };
 
-// Fetch the expeditions started by the user
+/**
+ * Fetch the expeditions started by the user
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Promise<void>}
+ */
 export const getUserExpeditions = async (req, res) => {
 	try {
 		const user = await User.findById(req.user._id).populate(
@@ -116,7 +137,12 @@ export const getUserExpeditions = async (req, res) => {
 	}
 };
 
-// Fetch the achievements earned by the user
+/**
+ * Fetch the achievements earned by the user
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Promise<void>}
+ */
 export const getUserAchievements = async (req, res) => {
 	try {
 		const user = await User.findById(req.user._id).populate(
@@ -139,7 +165,12 @@ export const getUserAchievements = async (req, res) => {
 	}
 };
 
-// Get users by client
+/**
+ * Get users by client
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Promise<void>}
+ */
 export const getUsersByClient = async (req, res) => {
 	const { clientId } = req.params;
 	try {
@@ -153,6 +184,12 @@ export const getUsersByClient = async (req, res) => {
 	}
 };
 
+/**
+ * Get user by ID
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Promise<void>}
+ */
 export const getUserById = async (req, res) => {
 	const { userId } = req.params;
 	try {
@@ -168,6 +205,12 @@ export const getUserById = async (req, res) => {
 	}
 };
 
+/**
+ * Update a user's information
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Promise<void>}
+ */
 export const updateUser = async (req, res) => {
 	const { userId } = req.params;
 	const { username, email, firstName, lastName } = req.body;

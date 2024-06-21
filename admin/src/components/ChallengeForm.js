@@ -43,9 +43,17 @@ const ChallengeForm = ({ initialData = {}, onSubmit }) => {
 		initialData.difficulty || "easy"
 	);
 	const [goal, setGoal] = useState(initialData.goal || "");
-	const [completionCriteria, setCompletionCriteria] = useState(
-		initialData.completionCriteria || ""
+	// const [completionCriteria, setCompletionCriteria] = useState(
+	// 	initialData.completionCriteria || ""
+	// );
+
+	const [completionCriteriaType, setCompletionCriteriaType] = useState(
+		initialData.completionCriteria.type || "step"
 	);
+	const [completionCriteriaAmount, setCompletionCriteriaAmount] = useState(
+		initialData.completionCriteria.amount || ""
+	);
+
 	const { selectedClient } = useContext(ClientContext);
 	const client = selectedClient;
 
@@ -60,6 +68,7 @@ const ChallengeForm = ({ initialData = {}, onSubmit }) => {
 			});
 			return;
 		}
+		console.log(completionCriteriaType, completionCriteriaAmount);
 		onSubmit({
 			title,
 			description,
@@ -71,7 +80,9 @@ const ChallengeForm = ({ initialData = {}, onSubmit }) => {
 			reward,
 			difficulty,
 			goal,
-			completionCriteria,
+			completionCriteriaType,
+			completionCriteriaAmount,
+			// completionCriteria,
 			client,
 		});
 	};
@@ -168,12 +179,24 @@ const ChallengeForm = ({ initialData = {}, onSubmit }) => {
 							onChange={(e) => setGoal(e.target.value)}
 						/>
 					</FormControl>
-					<FormControl id="completionCriteria" isRequired>
-						<FormLabel>Completion Criteria</FormLabel>
+					<FormControl id="type" isRequired>
+						<FormLabel>Completion Criteria Type</FormLabel>
+						<Select
+							value={completionCriteriaType}
+							onChange={(e) => setCompletionCriteriaType(e.target.value)}>
+							<option value="step">step</option>
+							<option value="minute">minute</option>
+							<option value="calorie">calorie</option>
+							<option value="other">other</option>
+						</Select>
+					</FormControl>
+
+					<FormControl id="amount" isRequired>
+						<FormLabel>Completion Criteria Amount</FormLabel>
 						<Input
-							type="text"
-							value={completionCriteria}
-							onChange={(e) => setCompletionCriteria(e.target.value)}
+							type="number"
+							value={completionCriteriaAmount}
+							onChange={(e) => setCompletionCriteriaAmount(e.target.value)}
 						/>
 					</FormControl>
 					<HStack display="flex" justifyContent="space-between">

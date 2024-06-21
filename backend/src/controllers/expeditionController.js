@@ -1,7 +1,11 @@
 import Expedition from "../models/Expedition.js";
 import User from "../models/User.js";
 
-// Fetch all expeditions
+/**
+ * Get all expeditions
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ */
 export const getExpeditions = async (req, res) => {
 	try {
 		const expeditions = await Expedition.find({});
@@ -12,7 +16,11 @@ export const getExpeditions = async (req, res) => {
 	}
 };
 
-// Fetch a single expedition by ID
+/**
+ * Get a single expedition by ID
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ */
 export const getExpeditionById = async (req, res) => {
 	try {
 		const expedition = await Expedition.findById(req.params.id);
@@ -27,7 +35,11 @@ export const getExpeditionById = async (req, res) => {
 	}
 };
 
-// Start an expedition
+/**
+ * Start an expedition
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ */
 export const startExpedition = async (req, res) => {
 	const { expeditionId } = req.body;
 	const userId = req.user._id;
@@ -51,7 +63,11 @@ export const startExpedition = async (req, res) => {
 	}
 };
 
-// Abandon an expedition
+/**
+ * Abandon an expedition
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ */
 export const abandonExpedition = async (req, res) => {
 	const { expeditionId } = req.body;
 	const userId = req.user._id;
@@ -71,7 +87,11 @@ export const abandonExpedition = async (req, res) => {
 	}
 };
 
-// Update progress
+/**
+ * Update progress
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ */
 export const updateProgress = async (req, res) => {
 	const { expeditionId, progress } = req.body;
 	const userId = req.user._id;
@@ -104,7 +124,11 @@ export const updateProgress = async (req, res) => {
 	}
 };
 
-// Create a new expedition
+/**
+ * Create a new expedition
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ */
 export const createExpedition = async (req, res) => {
 	try {
 		const { title, description, client } = req.body;
@@ -120,7 +144,15 @@ export const createExpedition = async (req, res) => {
 	}
 };
 
-// Update an expedition
+/**
+ * Update an expedition
+ * @param {Object} req - The request object
+ * @param {string} req.params.id - The id of the expedition to update
+ * @param {Object} req.body - The new data for the expedition
+ * @param {string} req.body.title - The new title for the expedition
+ * @param {string} req.body.description - The new description for the expedition
+ * @param {Object} res - The response object
+ */
 export const updateExpedition = async (req, res) => {
 	const { id } = req.params;
 	const { title, description } = req.body;
@@ -141,7 +173,12 @@ export const updateExpedition = async (req, res) => {
 	}
 };
 
-// Delete an expedition
+/**
+ * Delete an expedition
+ * @param {Object} req - The request object
+ * @param {string} req.params.id - The id of the expedition to delete
+ * @param {Object} res - The response object
+ */
 export const deleteExpedition = async (req, res) => {
 	const { id } = req.params;
 
@@ -158,7 +195,12 @@ export const deleteExpedition = async (req, res) => {
 	}
 };
 
-// Get expeditions by client
+/**
+ * Get expeditions by client
+ * @param {Object} req - The request object
+ * @param {string} req.params.clientId - The id of the client to fetch expeditions for
+ * @param {Object} res - The response object
+ */
 export const getExpeditionsByClient = async (req, res) => {
 	const { clientId } = req.params;
 	try {

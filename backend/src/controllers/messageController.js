@@ -2,7 +2,11 @@ import Message from "../models/Message.js";
 // import nodemailer from "nodemailer";
 import Client from "../models/Client.js";
 
-// Create a new message
+/**
+ * Creates a new message and saves it to the database.
+ * @param {Object} req - The request object containing the message details.
+ * @param {Object} res - The response object for sending back the result of this function.
+ */
 export const createMessage = async (req, res) => {
 	const {
 		title,
@@ -35,7 +39,11 @@ export const createMessage = async (req, res) => {
 	}
 };
 
-// Get all messages for a client
+/**
+ * Retrieves all messages associated with a specific client from the database.
+ * @param {Object} req - The request object containing the client ID.
+ * @param {Object} res - The response object for sending back the result of this function.
+ */
 export const getMessagesByClient = async (req, res) => {
 	const { clientId } = req.params;
 	try {
@@ -49,7 +57,11 @@ export const getMessagesByClient = async (req, res) => {
 	}
 };
 
-// Update a message
+/**
+ * Updates an existing message in the database with new details.
+ * @param {Object} req - The request object containing the updated message details and the ID of the message to be updated.
+ * @param {Object} res - The response object for sending back the result of this function.
+ */
 export const updateMessage = async (req, res) => {
 	const { messageId } = req.params;
 
@@ -68,7 +80,11 @@ export const updateMessage = async (req, res) => {
 	}
 };
 
-// Delete a message
+/**
+ * Deletes an existing message from the database.
+ * @param {Object} req - The request object containing the ID of the message to be deleted.
+ * @param {Object} res - The response object for sending back the result of this function.
+ */
 export const deleteMessage = async (req, res) => {
 	const { messageId } = req.params;
 
@@ -85,7 +101,12 @@ export const deleteMessage = async (req, res) => {
 	}
 };
 
-// Send message via email
+/**
+ * Sends an email with a specific subject and body to a recipient's address.
+ * @param {string} to - The recipient's email address.
+ * @param {string} subject - The subject of the email.
+ * @param {string} text - The content of the email.
+ */
 const sendEmail = (email, subject, body) => {
 	const transporter = nodemailer.createTransport({
 		service: "gmail",
@@ -111,7 +132,9 @@ const sendEmail = (email, subject, body) => {
 	// });
 };
 
-// Schedule and send messages
+/**
+ * Retrieves all scheduled messages and sends them to their respective users.
+ */
 export const scheduleAndSendMessages = async () => {
 	const now = new Date();
 

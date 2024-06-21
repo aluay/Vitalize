@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
 
+/**
+ * Schema for the 'Achievement' document in MongoDB.
+ * Defines the structure of documents in the 'achievements' collection and specifies their properties, data types
+ * and whether they are required or not.
+ */
 const achievementSchema = new mongoose.Schema(
 	{
 		title: {

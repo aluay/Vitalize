@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 
+/**
+ * Schema for the 'Challenge' document in MongoDB collection 'challenges'.
+ */
 const challengeSchema = mongoose.Schema(
 	{
 		title: {
@@ -61,8 +64,8 @@ const challengeSchema = mongoose.Schema(
 			required: true,
 		},
 		completionCriteria: {
-			type: String,
-			required: false,
+			type: { type: String, required: true },
+			amount: { type: Number, required: true },
 		},
 		tags: [
 			{

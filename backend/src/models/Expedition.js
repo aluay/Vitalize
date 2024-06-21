@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 
+/**
+ * A schema definition for a client.
+ */
 const expeditionSchema = mongoose.Schema(
 	{
 		title: {

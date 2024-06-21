@@ -1,7 +1,11 @@
 import Incentive from "../models/Incentive.js";
 import User from "../models/User.js";
 
-// Fetch all incentives
+/**
+ * Fetch all incentives
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 export const getIncentives = async (req, res) => {
 	try {
 		const incentives = await Incentive.find({});
@@ -12,7 +16,11 @@ export const getIncentives = async (req, res) => {
 	}
 };
 
-// Fetch a single incentive by ID
+/**
+ * Fetch a single incentive by ID
+ * @param {Object} req - Express request object, containing the id of the incentive in req.params
+ * @param {Object} res - Express response object
+ */
 export const getIncentiveById = async (req, res) => {
 	try {
 		const incentive = await Incentive.findById(req.params.id);
@@ -27,7 +35,11 @@ export const getIncentiveById = async (req, res) => {
 	}
 };
 
-// Start an incentive
+/**
+ * Start an incentive for a user
+ * @param {Object} req - Express request object, containing the id of the incentive in req.body
+ * @param {Object} res - Express response object
+ */
 export const startIncentive = async (req, res) => {
 	const { incentiveId } = req.body;
 	const userId = req.user._id;
@@ -49,7 +61,11 @@ export const startIncentive = async (req, res) => {
 	}
 };
 
-// Abandon an incentive
+/**
+ * Abandon an incentive for a user
+ * @param {Object} req - Express request object, containing the id of the incentive in req.body
+ * @param {Object} res - Express response object
+ */
 export const abandonIncentive = async (req, res) => {
 	const { incentiveId } = req.body;
 	const userId = req.user._id;
@@ -69,7 +85,11 @@ export const abandonIncentive = async (req, res) => {
 	}
 };
 
-// Update progress
+/**
+ * Update progress for an incentive of a user
+ * @param {Object} req - Express request object, containing the id and progress of the incentive in req.body
+ * @param {Object} res - Express response object
+ */
 export const updateProgress = async (req, res) => {
 	const { incentiveId, progress } = req.body;
 	const userId = req.user._id;
@@ -102,7 +122,19 @@ export const updateProgress = async (req, res) => {
 	}
 };
 
-// Create a new incentive
+/**
+ * Function to create a new incentive
+ * @param {Object} req - The request object containing the data for creating an incentive
+ * @param {String} req.body.title - Title of the incentive
+ * @param {String} req.body.description - Description of the incentive
+ * @param {String} req.body.type - Type of the incentive
+ * @param {Date} req.body.startDate - Start date of the incentive
+ * @param {Date} req.body.endDate - End date of the incentive
+ * @param {Object} req.body.completionCriteria - Completion criteria for the incentive
+ * @param {String} req.body.client - Client ID for the incentive
+ *
+ * @returns {Object} The created incentive object with status code 201 if successful, else returns a server error with status code 500
+ */
 export const createIncentive = async (req, res) => {
 	try {
 		const {
@@ -131,7 +163,16 @@ export const createIncentive = async (req, res) => {
 	}
 };
 
-// Update an incentive
+/**
+ * Function to update an incentive
+ * @param {Object} req - The request object containing the data for updating an incentive and its id
+ * @param {String} req.body.title - Title of the incentive
+ * @param {String} req.body.description - Description of the incentive
+ * @param {Date} req.body.startDate - Start date of the incentive
+ * @param {Date} req.body.endDate - End date of the incentive
+ *
+ * @returns {Object} The updated incentive object with status code 200 if successful, else returns an error message with status code 500
+ */
 export const updateIncentive = async (req, res) => {
 	const { title, description, startDate, endDate } = req.body;
 
@@ -153,7 +194,12 @@ export const updateIncentive = async (req, res) => {
 	}
 };
 
-// Delete an incentive
+/**
+ * Function to delete an incentive by id
+ * @param {Object} req - The request object containing the id of the incentive to be deleted
+ *
+ * @returns {Object} A success message with status code 200 if successful, else returns an error message with status code 500
+ */
 export const deleteIncentive = async (req, res) => {
 	try {
 		const incentive = await Incentive.findByIdAndDelete(req.params.id);
@@ -168,7 +214,12 @@ export const deleteIncentive = async (req, res) => {
 	}
 };
 
-// Get incentives by client
+/**
+ * Function to get all incentives for a specific client
+ * @param {Object} req - The request object containing the id of the client
+ *
+ * @returns {Array<Incentive>} An array of incentives if successful, else returns an error message with status code 500
+ */
 export const getIncentivesByClient = async (req, res) => {
 	const { clientId } = req.params;
 	try {

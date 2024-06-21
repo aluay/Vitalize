@@ -5,7 +5,11 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
 
-// Helper function to parse CSV file
+/**
+ * Helper function to parse CSV file
+ * @param {string} filePath - The path of the CSV file.
+ * @return {Promise<Array>} Promise object representing the array of data parsed from the CSV file.
+ */
 const parseCSV = (filePath) => {
 	return new Promise((resolve, reject) => {
 		const results = [];
@@ -28,7 +32,11 @@ const parseCSV = (filePath) => {
 	});
 };
 
-// Controller to upload clients
+/**
+ * Controller to upload clients
+ * @param {Object} req - The HTTP request object.
+ * @param {Object} res - The HTTP response object.
+ */
 export const uploadClients = async (req, res) => {
 	try {
 		const clients = await parseCSV(req.file.path);
@@ -73,7 +81,12 @@ export const uploadClients = async (req, res) => {
 	}
 };
 
-// Helper function to send email
+/**
+ * Helper function to send email
+ * @param {string} email - The recipient's email address.
+ * @param {string} subject - The subject of the email.
+ * @param {string} text - The body content of the email.
+ */
 const sendEmail = (email, subject, text) => {
 	const transporter = nodemailer.createTransport({
 		service: "gmail",
@@ -99,7 +112,11 @@ const sendEmail = (email, subject, text) => {
 	});
 };
 
-// Helper function to generate unique username
+/**
+ * Helper function to generate unique username based on provided baseUsername.
+ * @param {string} baseUsername - The base username for generating a unique one.
+ * @return {Promise<string>} A Promise that resolves to the generated unique username.
+ */
 const generateUniqueUsername = async (baseUsername) => {
 	let username = baseUsername;
 	let exists = await User.findOne({ username });
@@ -114,7 +131,11 @@ const generateUniqueUsername = async (baseUsername) => {
 	return username;
 };
 
-// Controller to upload users
+/**
+ * Controller to upload users from CSV file and create a new user for each in the system.
+ * @param {Object} req - The request object containing the uploaded file and clientId in body.
+ * @param {Object} res - The response object used to send back responses to the client.
+ */
 export const uploadUsers = async (req, res) => {
 	try {
 		const users = await parseCSV(req.file.path);

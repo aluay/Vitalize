@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 
+/**
+ * A schema definition for an incentive.
+ */
 const incentiveSchema = mongoose.Schema(
 	{
 		title: {
